@@ -13,7 +13,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: white;
+            background-color: #ffc10730;
         }
         #word-card {
             cursor: pointer;
@@ -44,7 +44,28 @@
 
     <!-- JavaScript to display random word -->
     <script>
-        const words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape"];
+        const words = [
+    "1", "the", "and", "to", "a", "was", "my", "went", "we", "on", "it", "then", "he", 
+    "had", "in", "they", "with", "of", "there", "got", "she", "said", "played", "one", 
+    "is", "were", "day", "SO", "when", "home", "you", "at", "me", "mum", "for", "dad", 
+    "but", "saw", "house", "that", "weekend", "time", "her", "go", "came", "because", 
+    "up", "his", "once", "after", "fun", "like", "some", "have", "are", "out", "going", 
+    "called", "all", "play", "Sunday", "upon", "Saturday", "did", "school", "two", "very", 
+    "back", "ate", "get", "lived", "am", "him", "watched", "little", "can", "bought", 
+    "brother", "big", "birthday", "them", "bed", "made", "name", "too", "next", "dog", 
+    "lots", "night", "an", "not", "park", "friends", "into", "will", "car", "our", "do", 
+    "sister", "be", "people", "didn't", "friend", "their", "put", "gave", "found", "from", 
+    "down", "water", "party", "about", "took", "good", "other", "see", "girl", "boy", 
+    "over", "us", "your", "off", "three", "dinner", "liked", "won", "morning", "playing", 
+    "want", "happy", "what", "as", "love", "if", "again", "game", "really", "could", 
+    "shop", "would", "eat", "fish", "this", "ran", "first", "baby", "favourite", "man", 
+    "wanted", "by", "cat", "has", "shops", "bike", "food", "outside", "family", "football", 
+    "lunch", "looked", "named", "away", "no", "lost", "TV", "fairy", "cousin", "stayed", 
+    "Friday", "games", "old", "woke", "ball", "come", "ever", "new", "room", "nice", 
+    "scared", "who", "inside", "it's", "tree", "cake", "best", "fell", "long", "soccer", 
+    "how", "also", "know", "last", "sleep", "swimming", "don't", "just", "told", "yes", 
+    "around"
+];
         
         function getRandomWord() {
             const randomIndex = Math.floor(Math.random() * words.length);
