@@ -13,7 +13,8 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #ffc10730;
+            background-color: white;
+            flex-direction: column;
         }
         #word-card {
             cursor: pointer;
@@ -25,6 +26,7 @@
             font-size: 2rem;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         .card-body {
             display: flex;
@@ -33,40 +35,52 @@
             width: 100%;
             height: 100%;
         }
+    /*    #timer {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5rem;
+        } */
     </style>
 </head>
 <body>
-    <div id="word-card" class="card">
+    <!-- Card with Random Word and Timer -->
+    <div id="word-card" class="card mt-5">
         <div class="card-body">
             <p id="word" class="card-text text-center"></p>
+            <div id="timer"></div>
         </div>
     </div>
 
-    <!-- JavaScript to display random word -->
+    <!-- JavaScript to display random word and timer -->
     <script>
         const words = [
-    "I", "the", "and", "to", "a", "was", "my", "went", "we", "on", "it", "then", "he", 
-    "had", "in", "they", "with", "of", "there", "got", "she", "said", "played", "one", 
-    "is", "were", "day", "SO", "when", "home", "you", "at", "me", "mum", "for", "dad", 
-    "but", "saw", "house", "that", "weekend", "time", "her", "go", "came", "because", 
-    "up", "his", "once", "after", "fun", "like", "some", "have", "are", "out", "going", 
-    "called", "all", "play", "Sunday", "upon", "Saturday", "did", "school", "two", "very", 
-    "back", "ate", "get", "lived", "am", "him", "watched", "little", "can", "bought", 
-    "brother", "big", "birthday", "them", "bed", "made", "name", "too", "next", "dog", 
-    "lots", "night", "an", "not", "park", "friends", "into", "will", "car", "our", "do", 
-    "sister", "be", "people", "didn't", "friend", "their", "put", "gave", "found", "from", 
-    "down", "water", "party", "about", "took", "good", "other", "see", "girl", "boy", 
-    "over", "us", "your", "off", "three", "dinner", "liked", "won", "morning", "playing", 
-    "want", "happy", "what", "as", "love", "if", "again", "game", "really", "could", 
-    "shop", "would", "eat", "fish", "this", "ran", "first", "baby", "favourite", "man", 
-    "wanted", "by", "cat", "has", "shops", "bike", "food", "outside", "family", "football", 
-    "lunch", "looked", "named", "away", "no", "lost", "TV", "fairy", "cousin", "stayed", 
-    "Friday", "games", "old", "woke", "ball", "come", "ever", "new", "room", "nice", 
-    "scared", "who", "inside", "it's", "tree", "cake", "best", "fell", "long", "soccer", 
-    "how", "also", "know", "last", "sleep", "swimming", "don't", "just", "told", "yes", 
-    "around"
-];
+            "", "the", "and", "to", "a", "was", "my", "went", "we", "on", "it", "then", "he", 
+            "had", "in", "they", "with", "of", "there", "got", "she", "said", "played", "one", 
+            "is", "were", "day", "SO", "when", "home", "you", "at", "me", "mum", "for", "dad", 
+            "but", "saw", "house", "that", "weekend", "time", "her", "go", "came", "because", 
+            "up", "his", "once", "after", "fun", "like", "some", "have", "are", "out", "going", 
+            "called", "all", "play", "Sunday", "upon", "Saturday", "did", "school", "two", "very", 
+            "back", "ate", "get", "lived", "am", "him", "watched", "little", "can", "bought", 
+            "brother", "big", "birthday", "them", "bed", "made", "name", "too", "next", "dog", 
+            "lots", "night", "an", "not", "park", "friends", "into", "will", "car", "our", "do", 
+            "sister", "be", "people", "didn't", "friend", "their", "put", "gave", "found", "from", 
+            "down", "water", "party", "about", "took", "good", "other", "see", "girl", "boy", 
+            "over", "us", "your", "off", "three", "dinner", "liked", "won", "morning", "playing", 
+            "want", "happy", "what", "as", "love", "if", "again", "game", "really", "could", 
+            "shop", "would", "eat", "fish", "this", "ran", "first", "baby", "favourite", "man", 
+            "wanted", "by", "cat", "has", "shops", "bike", "food", "outside", "family", "football", 
+            "lunch", "looked", "named", "away", "no", "lost", "TV", "fairy", "cousin", "stayed", 
+            "Friday", "games", "old", "woke", "ball", "come", "ever", "new", "room", "nice", 
+            "scared", "who", "inside", "it's", "tree", "cake", "best", "fell", "long", "soccer", 
+            "how", "also", "know", "last", "sleep", "swimming", "don't", "just", "told", "yes", 
+            "around"
+        ];
         
+        let timerInterval;
+        let timerValue = 0;
+        const timerElement = document.getElementById('timer');
+
         function getRandomWord() {
             const randomIndex = Math.floor(Math.random() * words.length);
             return words[randomIndex];
@@ -74,6 +88,25 @@
 
         function displayRandomWord() {
             document.getElementById('word').innerText = getRandomWord();
+            resetTimer();
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerValue = 0;
+            timerElement.innerText = timerValue;
+            timerElement.style.color = 'green';
+            startTimer();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timerValue++;
+                timerElement.innerText = timerValue;
+                if (timerValue > 9) {
+                    timerElement.style.color = 'red';
+                }
+            }, 1000);
         }
 
         document.getElementById('word-card').addEventListener('click', displayRandomWord);
