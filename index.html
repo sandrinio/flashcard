@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Word Display</title>
+    <title>Random Word Flashcards</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -47,6 +47,7 @@
 <body>
     <!-- Card with Random Word and Timer -->
     <div id="word-card" class="card mt-5">
+        <p id="emoji"></p>
         <div class="card-body">
             <p id="word" class="card-text text-center"></p>
              
@@ -81,10 +82,17 @@
         let timerInterval;
         let timerValue = 0;
         const timerElement = document.getElementById('timer');
+        const emojiElement = document.getElementById('emoji');
+        const thumbs = '&#128077;';
+        const poop = '&#128169;';
+    
 
         function getRandomWord() {
             const randomIndex = Math.floor(Math.random() * words.length);
             return words[randomIndex];
+        }
+        function appendEmoji() {
+            emojiElement.innerText += poop;
         }
 
         function displayRandomWord() {
@@ -98,6 +106,12 @@
             timerElement.innerText = timerValue;
             timerElement.style.color = 'green';
             startTimer();
+        }
+
+        function afterEffect() {
+            if (timerValue > 10){
+
+            }
         }
 
         function startTimer() {
