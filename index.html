@@ -41,23 +41,48 @@
             top: 10px;
             left: 10px;
             font-size: 1.5rem;
-        } 
+        }
+        .flame {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: -10px;
+            animation: flameAnimation 0.5s infinite alternate;
+        }
+        @keyframes flameAnimation {
+            from {transform: translateY(0);}
+            to {transform: translateY(-10px);}
+        }
     </style>
 </head>
 <body>
+    <!-- Level Selector -->
+    <div class="btn-group mb-4" role="group" aria-label="Level Selector">
+        <button type="button" class="btn btn-primary-outline" onclick="setLevel(1)">Level I</button>
+        <button type="button" class="btn btn-primary-outline" onclick="setLevel(2)">Level II</button>
+        <button type="button" class="btn btn-primary-outline" onclick="setLevel(3)">Level III</button>
+    </div>
+
     <!-- Card with Random Word and Timer -->
     <div id="word-card" class="card mt-5">
         <p id="emoji"></p>
         <div class="card-body">
             <p id="word" class="card-text text-center"></p>
-             
         </div>
     </div>
 
     <!-- JavaScript to display random word and timer -->
     <script>
-        const words = [
-            "", "the", "and", "to", "a", "was", "my", "went", "we", "on", "it", "then", "he", 
+        const levelWords = {
+            1: ["was", "my", "went", "we", "on", "it", "then", "he", 
+            "had", "in", "don't", "just", "told", "yes", 
+            "around", "didn't", "friend", "their", "put", "gave"],
+            2: ["I", "the", "and", "to", "a", "called", "all", "play", "Sunday", "upon", "Saturday", "did", "school", "two", "very", 
+            "back", "ate", "get", "lived", "am", "him", "watched", "little", "can", "bought", 
+            "brother", "big", "birthday", "them", "bed", "made", "name", "too", "next", "dog", 
+            "lots", "night", "an", "not", "park", "friends", "into", "will", "car", "our", "do", 
+            "sister", "be", "people", "found"],
+            3: ["I", "the", "and", "to", "a", "was", "my", "went", "we", "on", "it", "then", "he", 
             "had", "in", "they", "with", "of", "there", "got", "she", "said", "played", "one", 
             "is", "were", "day", "SO", "when", "home", "you", "at", "me", "mum", "for", "dad", 
             "but", "saw", "house", "that", "weekend", "time", "her", "go", "came", "because", 
@@ -76,52 +101,44 @@
             "Friday", "games", "old", "woke", "ball", "come", "ever", "new", "room", "nice", 
             "scared", "who", "inside", "it's", "tree", "cake", "best", "fell", "long", "soccer", 
             "how", "also", "know", "last", "sleep", "swimming", "don't", "just", "told", "yes", 
-            "around"
-        ];
-        
-        let timerInterval;
-        let timerValue = 0;
-        const timerElement = document.getElementById('timer');
-        const emojiElement = document.getElementById('emoji');
-        const thumbs = '&#128077;';
-        const poop = '&#128169;';
-    
+            "around"]
+        };
+        let currentLevel = 1;
+        const wordCard = document.getElementById('word-card');
+
+        function setLevel(level) {
+            currentLevel = level;
+            displayRandomWord();
+            if (level === 3) {
+                addFlames();
+            } else {
+                removeFlames();
+            }
+        }
 
         function getRandomWord() {
+            const words = levelWords[currentLevel];
             const randomIndex = Math.floor(Math.random() * words.length);
             return words[randomIndex];
-        }
-        function appendEmoji() {
-            emojiElement.innerText += poop;
         }
 
         function displayRandomWord() {
             document.getElementById('word').innerText = getRandomWord();
-            resetTimer();
         }
 
-        function resetTimer() {
-            clearInterval(timerInterval);
-            timerValue = 0;
-            timerElement.innerText = timerValue;
-            timerElement.style.color = 'green';
-            startTimer();
-        }
-
-        function afterEffect() {
-            if (timerValue > 10){
-
+        function addFlames() {
+            for (let i = 0; i < 3; i++) {
+                const flame = document.createElement('div');
+                flame.classList.add('flame');
+                flame.style.left = `${i * 30 + 20}px`;
+                flame.style.backgroundImage = 'url("https://pngimg.com/uploads/flame/flame_PNG13233.png")'; // Replace with actual flame image URL
+                wordCard.appendChild(flame);
             }
         }
 
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                timerValue++;
-                timerElement.innerText = timerValue;
-                if (timerValue > 9) {
-                    timerElement.style.color = 'red';
-                }
-            }, 1000);
+        function removeFlames() {
+            const flames = document.querySelectorAll('.flame');
+            flames.forEach(flame => flame.remove());
         }
 
         document.getElementById('word-card').addEventListener('click', displayRandomWord);
